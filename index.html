@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video Call App</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <!-- Login Screen -->
+    <div id="loginScreen" class="min-h-screen flex items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+            <h2 class="text-2xl font-bold mb-6">Login</h2>
+            <input type="text" id="username" placeholder="Username" 
+                   class="w-full p-2 border rounded mb-4">
+            <button id="loginBtn" class="w-full bg-green-500 text-white p-2 rounded">
+                Login
+            </button>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="mainScreen" class="hidden min-h-screen">
+        <div class="flex">
+            <!-- Contacts List -->
+            <div class="w-80 bg-white h-screen border-r">
+                <div class="p-4 border-b">
+                    <h3 class="text-lg font-semibold">Online Users</h3>
+                </div>
+                <div id="usersList" class="overflow-y-auto">
+                    <!-- Users will be added here -->
+                </div>
+            </div>
+
+            <!-- Call Interface -->
+            <div class="flex-1 p-4">
+                <div id="noCallScreen" class="h-full flex items-center justify-center text-gray-500">
+                    Select a user to start a call
+                </div>
+
+                <div id="callScreen" class="hidden">
+                    <div id="remoteVideo" class="hidden">
+                        <video id="remoteVideoElement" autoplay playsinline 
+                               class="w-full max-h-[50vh] bg-black rounded-lg"></video>
+                    </div>
+                    <div id="localVideo" class="absolute bottom-4 right-4 w-64">
+                        <video id="localVideoElement" autoplay muted playsinline 
+                               class="w-full bg-black rounded-lg"></video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Incoming Call Dialog -->
+    <div id="incomingCallDialog" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-xl">
+            <h3 class="text-xl mb-4">Incoming call from <span id="callerName"></span></h3>
+            <div class="flex space-x-4">
+                <button id="acceptCall" class="bg-green-500 text-white px-4 py-2 rounded">
+                    Accept
+                </button>
+                <button id="rejectCall" class="bg-red-500 text-white px-4 py-2 rounded">
+                    Reject
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call Controls -->
+    <div id="callControls" class="hidden fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-white rounded-full shadow-lg px-6 py-3">
+        <div class="flex space-x-6">
+            <button id="toggleAudio" class="p-3 rounded-full hover:bg-gray-100">
+                🎤
+            </button>
+            <button id="toggleVideo" class="p-3 rounded-full hover:bg-gray-100">
+                📹
+            </button>
+            <button id="endCall" class="p-3 rounded-full bg-red-500 text-white hover:bg-red-600">
+                ❌
+            </button>
+        </div>
+    </div>
+    <script src="webrtc.js"></script>
+</body>
+</html>
